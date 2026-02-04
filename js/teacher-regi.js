@@ -5,6 +5,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
     const user = {
         name: document.getElementById("name").value.trim(),
         subject: document.getElementById("subject").value.trim(),
+        mobilenumber:document.getElementById("mobilenumber").value.trim(),
         email: document.getElementById("email").value.trim(),
         password: document.getElementById("password").value.trim()
     };
@@ -17,7 +18,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
     }
 
     // Send data to backend API
-    fetch("http://localhost:8080/api/teacher/register", {
+    fetch("http://localhost:8080/api/teachers/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

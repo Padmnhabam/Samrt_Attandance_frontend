@@ -710,6 +710,207 @@
             margin-top: 20px;
         }
 
+        /* QR Display Styles */
+.qr-display {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: var(--light-gray);
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.qr-code {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.qr-timer {
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.qr-info {
+    text-align: center;
+    width: 100%;
+}
+
+.qr-info h4 {
+    margin-bottom: 10px;
+    color: var(--dark-color);
+}
+
+.qr-info p {
+    margin: 5px 0;
+    color: var(--gray-color);
+}
+
+/* Share Buttons */
+.share-buttons {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.share-buttons h4 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.share-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-whatsapp {
+    background-color: #25D366 !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-whatsapp:hover {
+    background-color: #1da851 !important;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.status-present {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-absent {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status-late {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--gray-color);
+}
+
+.empty-state i {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: var(--light-color);
+}
+
+.empty-state h3 {
+    margin-bottom: 10px;
+    color: var(--dark-color);
+}
+
+/* Class Actions */
+.class-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    color: var(--gray-color);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.btn-icon:hover {
+    color: var(--primary-color);
+    background-color: var(--light-gray);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--gray-color);
+}
+
+/* Expired Message */
+.expired-message {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .qr-display {
+        padding: 15px;
+    }
+    
+    .share-options {
+        flex-direction: column;
+    }
+    
+    .share-options button {
+        width: 100%;
+    }
+}
+
         /* Responsive */
         @media (max-width: 992px) {
             .sidebar {
