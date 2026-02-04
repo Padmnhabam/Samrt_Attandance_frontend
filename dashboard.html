@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>🎓 Student Panel</h2>
+            <ul>
+                <li onclick="showSection('home')">🏠 Dashboard</li>
+                <li onclick="showSection('attendance')">📅 Attendance</li>
+                <li onclick="showSection('profile')">👤 Profile</li>
+                <li onclick="logout()">🚪 Logout</li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main">
+            <div class="topbar">
+                <h1 id="welcomeText">Welcome</h1>
+            </div>
+
+            <!-- HOME -->
+            <section id="home" class="section">
+                <div class="cards">
+                    <div class="card blue">
+                        <h3>Total Classes</h3>
+                        <p>120</p>
+                    </div>
+                    <div class="card green">
+                        <h3>Present</h3>
+                        <p>102</p>
+                    </div>
+                    <div class="card red">
+                        <h3>Absent</h3>
+                        <p>18</p>
+                    </div>
+                    <div class="card purple">
+                        <h3>Attendance %</h3>
+                        <p>85%</p>
+                    </div>
+                </div>
+
+                <!-- In your HTML, update the chart-card section -->
+                <div class="chart-card">
+                    <h3>Attendance Overview</h3>
+                    <div class="chart-container">
+                        <canvas id="attendanceChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ATTENDANCE -->
+            <!-- ATTENDANCE SECTION -->
+            <section id="attendance" class="section hidden">
+                <h2>Attendance Records</h2>
+
+                <!-- Attendance Stats Cards -->
+                <div class="attendance-stats">
+                    <div class="stat-card">
+                        <h4><span class="status-badge present" style="min-width: auto; padding: 4px 10px;">✓</span>
+                            Present</h4>
+                        <div class="stat-value"> </div>
+                        <div class="stat-progress">
+                            <div class="stat-progress-bar present" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <h4><span class="status-badge absent" style="min-width: auto; padding: 4px 10px;">✗</span>
+                            Absent</h4>
+                        <div class="stat-value"> </div>
+                        <div class="stat-progress">
+                            <div class="stat-progress-bar absent" style="width: 15%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Monthly Attendance Summary</h3>
+                        <div class="table-filters">
+                            <button class="filter-btn active">All</button>
+                            <button class="filter-btn">Present</button>
+                            <button class="filter-btn">Absent</button>
+                            <button class="filter-btn">This Month</button>
+                        </div>
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Subject</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- PROFILE -->
+            <section id="profile" class="section hidden">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="avatar">👩‍🎓</div>
+                        <h2 id="profileName"></h2>
+                        <p id="profileEmail"></p>
+                    </div>
+
+                    <div class="profile-info">
+                        <div class="info-box">
+                            <span>Class</span>
+                            <p id="profileClass"></p>
+                        </div>
+                        <div class="info-box">
+                            <span>Roll No</span>
+                            <p id="profileRoll"></p>
+                        </div>
+                        <div class="info-box">
+                            <span>Attendance</span>
+                            <p>85%</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <h2>Welcome Back 👋</h2>
+        <p class="subtitle">Login to continue</p>
+
+        <form id="loginForm">
+
+            <!-- ROLE SELECTION -->
+            <div class="input-group">
+                <select id="role" required>
+                    <option value=""> </option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                </select>
+                <label>User Role</label>
+            </div>
+
+            <div class="input-group">
+                <input type="email" id="email" required>
+                <label>Email Address</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" required>
+                <label>Password</label>
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+        </form>
+
+        <p id="message" class="error-msg"></p>
+
+        <div class="register-link">
+            New user?
+            <span onclick="goToRegister()">Register Here</span>
+        </div>
+    </div>
+</div>
+
+<script src="login.js"></script>
+</body>
+</html>

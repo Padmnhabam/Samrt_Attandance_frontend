@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - Smart QR Attendance</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="teacher-dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-qrcode"></i>
+                <h1>QR Attendance</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-tab="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="qr-generator">
+                        <i class="fas fa-qrcode"></i>
+                        <span>Generate QR</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="classes">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                        <span>Classes</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="students">
+                        <i class="fas fa-users"></i>
+                        <span>Students</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="teacher-profile">
+                        <i class="fas fa-user-tie"></i>
+                        <span>My Profile</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="reports">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Reports</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-tab="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <button onclick="logout()">Logout</button>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h2 id="pageTitle">Teacher Dashboard</h2>
+                <div class="user-info">
+                    <div class="user-avatar" id="headerAvatar">JD</div>
+                    <div>
+                        <h4 id="headerName">John Doe</h4>
+                        <p id="headerRole">Computer Science Teacher</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <div id="dashboard-tab" class="tab-content active">
+                <!-- Welcome Section with Live Date & Time -->
+                <div class="welcome-section">
+                    <div class="welcome-text">
+                        <h2>Welcome, <span id="teacherName"></span> 👋</h2>
+                        <p>Here's what's happening with your classes today.</p>
+                    </div>
+                    <div class="date-time">
+                        <div class="date" id="currentDate">Monday, February 12, 2024</div>
+                        <div class="time" id="currentTime">09:45:32 AM</div>
+                    </div>
+                </div>
+                <div class="section-title">
+                    <h3><i class="fas fa-tachometer-alt"></i> Overview</h3>
+                </div>
+                
+                <div class="classes-container">
+                    <div class="class-card">
+                        <div class="class-header">
+                            <div class="class-title">Class 12 - Computer Science</div>
+                        </div>
+                        <div class="class-info">
+                            <p><strong>Schedule:</strong> Mon, Wed, Fri 9:00-10:00</p>
+                            <p><strong>Room:</strong> Room 201</p>
+                            <p><strong>Divisions:</strong> A & B</p>
+                        </div>
+                        <div class="class-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">40</div>
+                                <div class="stat-label">Students</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">92%</div>
+                                <div class="stat-label">Attendance</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">3</div>
+                                <div class="stat-label">QR Today</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="class-card">
+                        <div class="class-header">
+                            <div class="class-title">Class 11 - Computer Science</div>
+                        </div>
+                        <div class="class-info">
+                            <p><strong>Schedule:</strong> Tue, Thu 10:00-11:00</p>
+                            <p><strong>Room:</strong> Room 202</p>
+                            <p><strong>Divisions:</strong> A & B</p>
+                        </div>
+                        <div class="class-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">35</div>
+                                <div class="stat-label">Students</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">88%</div>
+                                <div class="stat-label">Attendance</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">2</div>
+                                <div class="stat-label">QR Today</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QR Generator Tab -->
+            <div id="qr-generator-tab" class="tab-content">
+                <div class="section-title">
+                    <h3><i class="fas fa-qrcode"></i> Generate QR for Class</h3>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="classSelect">Select Class</label>
+                        <select id="classSelect">
+                            <option value="">-- Select Class --</option>
+                            <option value="12">Class 12 - Computer Science</option>
+                            <option value="11">Class 11 - Computer Science</option>
+                            <option value="10">Class 10 - Computer Basics</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="divisionSelect">Select Division</label>
+                        <select id="divisionSelect">
+                            <option value="">-- Select Division --</option>
+                            <option value="A">Division A</option>
+                            <option value="B">Division B</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="durationSelect">QR Validity Duration</label>
+                        <select id="durationSelect">
+                            <option value="5">5 minutes</option>
+                            <option value="10">10 minutes</option>
+                            <option value="15" selected>15 minutes</option>
+                            <option value="20">20 minutes</option>
+                            <option value="30">30 minutes</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary" id="generateQRBtn">
+                    <i class="fas fa-qrcode"></i> Generate QR Code
+                </button>
+
+                <!-- QR Display Area -->
+                <div class="qr-display" id="qrDisplay">
+                    <div class="qr-code">
+                        <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=SampleQRData" alt="QR Code">
+                    </div>
+                    <div class="qr-info">
+                        <h4 id="qrClassInfo">Class 12 - Division A</h4>
+                        <p>QR Code valid for: <span class="timer" id="qrTimer">15:00</span> minutes</p>
+                        <p>Share this QR with students for attendance</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classes Tab -->
+            <div id="classes-tab" class="tab-content">
+                <div class="tabs">
+                    <div class="tab active" data-subtab="class-list">Class List</div>
+                    <div class="tab" data-subtab="add-class">Add New Class</div>
+                </div>
+
+                <!-- Class List Subtab -->
+                <div id="class-list-subtab" class="tab-content active">
+                    <div class="table-controls">
+                        <div>
+                            <button class="btn btn-success" id="addNewClassBtn">
+                                <i class="fas fa-plus"></i> Add New Class
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="classes-container" id="classesContainer">
+                        <!-- Class cards will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Add Class Subtab -->
+                <div id="add-class-subtab" class="tab-content">
+                    <div class="section-title">
+                        <h3><i class="fas fa-chalkboard-teacher"></i> Add New Class</h3>
+                    </div>
+                    
+                    <form id="addClassForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="className">Class Name *</label>
+                                <input type="text" id="className" placeholder="e.g., Class 12" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subjectName">Subject *</label>
+                                <input type="text" id="subjectName" placeholder="e.g., Computer Science" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="classSchedule">Schedule *</label>
+                                <input type="text" id="classSchedule" placeholder="e.g., Mon, Wed, Fri 9:00-10:00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="classRoom">Room Number *</label>
+                                <input type="text" id="classRoom" placeholder="e.g., Room 201" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="classDivisions">Divisions *</label>
+                                <div style="display: flex; gap: 15px; margin-top: 8px;">
+                                    <label style="display: flex; align-items: center; cursor: pointer;">
+                                        <input type="checkbox" name="divisions" value="A" checked style="margin-right: 5px;">
+                                        Division A
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer;">
+                                        <input type="checkbox" name="divisions" value="B" style="margin-right: 5px;">
+                                        Division B
+                                    </label>
+                                    <label style="display: flex; align-items: center; cursor: pointer;">
+                                        <input type="checkbox" name="divisions" value="C" style="margin-right: 5px;">
+                                        Division C
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="classTeacher">Teacher</label>
+                                <input type="text" id="classTeacher" value="John Doe" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="classDescription">Description (Optional)</label>
+                            <textarea id="classDescription" rows="3" placeholder="Enter class description..."></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="reset" class="btn btn-secondary">Clear Form</button>
+                            <button type="submit" class="btn btn-primary">Add Class</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Students Tab -->
+            <div id="students-tab" class="tab-content">
+                <div class="tabs">
+                    <div class="tab active" data-subtab="student-list">Student List</div>
+                    <div class="tab" data-subtab="add-student">Add Student</div>
+                    <div class="tab" data-subtab="manual-attendance">Manual Attendance</div>
+                </div>
+
+                <!-- Student List Subtab -->
+                <div id="student-list-subtab" class="tab-content active">
+                    <div class="table-controls">
+                        <div>
+                            <div class="form-row" style="margin-bottom: 0;">
+                                <div class="form-group" style="min-width: 150px;">
+                                    <select id="filterClass">
+                                        <option value="">All Classes</option>
+                                        <option value="12">MCA-Java</option>
+                                        <option value="11">MCA-Web Development</option>
+                                        <option value="10">MBA-OB</option>
+                                        <option value="10">MBA-Marketing</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" style="min-width: 150px;">
+                                    <select id="filterDivision">
+                                        <option value="">All Divisions</option>
+                                        <option value="A">Division A</option>
+                                        <option value="B">Division B</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-actions">
+                            <a href="#" class="btn btn-success" id="addStudentBtn" data-subtab-link="add-student">
+                                <i class="fas fa-user-plus"></i> Add Student
+                            </a>
+                        </div>
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Class</th>
+                                <th>Division</th>
+                                <th>Today's Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentTableBody">
+                            <!-- Student data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Add Student Subtab -->
+                <div id="add-student-subtab" class="tab-content">
+                    <div class="section-title">
+                        <h3><i class="fas fa-user-plus"></i> Add New Student</h3>
+                    </div>
+                    
+                    <form id="addStudentForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newStudentName">Full Name *</label>
+                                <input type="text" id="newStudentName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="newStudentId">Student ID *</label>
+                                <input type="text" id="newStudentId" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newStudentClass">Class *</label>
+                                <select id="newStudentClass" required>
+                                    <option value="">-- Select Class --</option>
+                                    <option value="12">MCA</option>
+                                    <option value="11">MBA</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="newStudentDivision">Division *</label>
+                                <select id="newStudentDivision" required>
+                                    <option value="">-- Select Division --</option>
+                                    <option value="A">Division A</option>
+                                    <option value="B">Division B</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="newStudentEmail">Email</label>
+                                <input type="email" id="newStudentEmail">
+                            </div>
+                            <div class="form-group">
+                                <label for="newStudentPhone">Phone</label>
+                                <input type="tel" id="newStudentPhone">
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="reset" class="btn btn-secondary">Clear</button>
+                            <button type="submit" class="btn btn-primary">Add Student</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Manual Attendance Subtab -->
+                <div id="manual-attendance-subtab" class="tab-content">
+                    <div class="section-title">
+                        <h3><i class="fas fa-user-edit"></i> Manual Attendance Entry</h3>
+                    </div>
+                    
+                    <form id="manualAttendanceForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="manualStudentId">Student ID *</label>
+                                <input type="text" id="manualStudentId" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="manualClassSelect">Class *</label>
+                                <select id="manualClassSelect" required>
+                                    <option value="">-- Select Class --</option>
+                                    <option value="12">MCA</option>
+                                    <option value="11">MBA</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="manualDivisionSelect">Division *</label>
+                                <select id="manualDivisionSelect" required>
+                                    <option value="">-- Select Division --</option>
+                                    <option value="A">Division A</option>
+                                    <option value="B">Division B</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="attendanceStatusSelect">Status *</label>
+                                <select id="attendanceStatusSelect" required>
+                                    <option value="present">Present</option>
+                                    <option value="absent">Absent</option>
+                                    <option value="late">Late</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="attendanceRemarks">Remarks (Optional)</label>
+                            <input type="text" id="attendanceRemarks" placeholder="Reason for manual entry">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="reset" class="btn btn-secondary">Clear</button>
+                            <button type="submit" class="btn btn-primary">Save Attendance</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Teacher Profile Tab -->
+            <div id="teacher-profile-tab" class="tab-content">
+                <div class="section-title">
+                    <h3><i class="fas fa-user-tie"></i> My Profile</h3>
+                    <button class="btn btn-primary" id="editTeacherProfileBtn">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </button>
+                </div>
+                
+                <div class="teacher-profile-container">
+                    <div class="teacher-info-card">
+                        <div class="teacher-avatar" id="teacherAvatar">JD</div>
+                        <h3 id="teacherName">John Doe</h3>
+                        <p id="teacherRole">Computer Science Teacher</p>
+                        
+                        <div class="teacher-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Employee ID:</span>
+                                <span class="detail-value" id="teacherId">T001</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Email:</span>
+                                <span class="detail-value" id="teacherEmail">john.doe@example.com</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Phone:</span>
+                                <span class="detail-value" id="teacherPhone">+1 (555) 123-4567</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Department:</span>
+                                <span class="detail-value" id="teacherDepartment">Computer Science</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Joined Date:</span>
+                                <span class="detail-value" id="teacherJoinDate">15 Aug, 2020</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Total Classes:</span>
+                                <span class="detail-value" id="teacherClasses">3</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Total Students:</span>
+                                <span class="detail-value" id="teacherStudents">100</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Last Login:</span>
+                                <span class="detail-value" id="teacherLastLogin">Today, 8:45 AM</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 25px; display: flex; gap: 10px;">
+                            <button class="btn btn-primary" style="flex: 1;" id="changePasswordBtn">
+                                <i class="fas fa-key"></i> Change Password
+                            </button>
+                            <button class="btn btn-secondary" style="flex: 1;" id="uploadPhotoBtn">
+                                <i class="fas fa-camera"></i> Upload Photo
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="chart-container">
+                            <div class="chart-title">My Performance Overview</div>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-pie" style="font-size: 48px; margin-right: 15px;"></i>
+                                Teaching Performance Analytics
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <div class="chart-title">Recent Activity</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date & Time</th>
+                                        <th>Activity</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="teacherActivity">
+                                    <!-- Teacher activity will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Tab -->
+            <div id="reports-tab" class="tab-content">
+                <div class="section-title">
+                    <h3><i class="fas fa-chart-bar"></i> Attendance Reports & Analytics</h3>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="reportPeriod">Report Period</label>
+                        <select id="reportPeriod">
+                            <option value="today">Today</option>
+                            <option value="week">This Week</option>
+                            <option value="month" selected>This Month</option>
+                            <option value="semester">This Semester</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reportClass">Class</label>
+                        <select id="reportClass">
+                            <option value="">All Classes</option>
+                            <option value="12">Class 12</option>
+                            <option value="11">Class 11</option>
+                            <option value="10">Class 10</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reportType">Report Type</label>
+                        <select id="reportType">
+                            <option value="summary">Summary Report</option>
+                            <option value="detailed">Detailed Report</option>
+                            <option value="trend">Trend Analysis</option>
+                            <option value="comparison">Class Comparison</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" id="generateReportBtn">
+                    <i class="fas fa-file-download"></i> Generate Report
+                </button>
+                
+                <div class="reports-grid" style="margin-top: 30px;">
+                    <div class="report-card" onclick="generateReport('attendance')">
+                        <div class="report-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="report-title">Attendance Summary</div>
+                        <div class="report-desc">Overall attendance statistics and trends for selected period</div>
+                        <div class="btn btn-secondary">View Report</div>
+                    </div>
+                    
+                    <div class="report-card" onclick="generateReport('student')">
+                        <div class="report-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="report-title">Student Performance</div>
+                        <div class="report-desc">Individual student attendance records and patterns</div>
+                        <div class="btn btn-secondary">View Report</div>
+                    </div>
+                    
+                    <div class="report-card" onclick="generateReport('class')">
+                        <div class="report-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="report-title">Class Comparison</div>
+                        <div class="report-desc">Compare attendance rates across different classes</div>
+                        <div class="btn btn-secondary">View Report</div>
+                    </div>
+                    
+                    <div class="report-card" onclick="generateReport('trend')">
+                        <div class="report-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="report-title">Trend Analysis</div>
+                        <div class="report-desc">Attendance trends over time with predictive analytics</div>
+                        <div class="btn btn-secondary">View Report</div>
+                    </div>
+                    
+                    <div class="report-card" onclick="generateReport('export')">
+                        <div class="report-icon">
+                            <i class="fas fa-file-export"></i>
+                        </div>
+                        <div class="report-title">Export Data</div>
+                        <div class="report-desc">Export attendance data in CSV, Excel or PDF format</div>
+                        <div class="btn btn-secondary">Export Now</div>
+                    </div>
+                    
+                    <div class="report-card" onclick="generateReport('late')">
+                        <div class="report-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="report-title">Late Arrivals</div>
+                        <div class="report-desc">Analysis of late arrivals and punctuality trends</div>
+                        <div class="btn btn-secondary">View Report</div>
+                    </div>
+                </div>
+                
+                <div class="chart-container" style="margin-top: 30px;">
+                    <div class="chart-title">Monthly Attendance Overview</div>
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-bar" style="font-size: 48px; margin-right: 15px;"></i>
+                        Monthly Attendance Chart Visualization
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings-tab" class="tab-content">
+                <div class="section-title">
+                    <h3><i class="fas fa-cog"></i> System Settings</h3>
+                </div>
+                
+                <div class="settings-container">
+                    <div class="settings-menu">
+                        <div class="settings-item active" data-settings="general">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>General Settings</span>
+                        </div>
+                        <div class="settings-item" data-settings="attendance">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Attendance Settings</span>
+                        </div>
+                        <div class="settings-item" data-settings="qr">
+                            <i class="fas fa-qrcode"></i>
+                            <span>QR Settings</span>
+                        </div>
+                        <div class="settings-item" data-settings="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                        </div>
+                        <div class="settings-item" data-settings="account">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Account Settings</span>
+                        </div>
+                        <div class="settings-item" data-settings="security">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Security</span>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-content">
+                        <!-- General Settings -->
+                        <div class="settings-section active" id="general-settings">
+                            <h3 style="margin-bottom: 20px;">General Settings</h3>
+                            <form id="generalSettingsForm">
+                                <div class="form-group">
+                                    <label for="instituteName">Institute Name</label>
+                                    <input type="text" id="instituteName" value="ABC High School">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="timeZone">Time Zone</label>
+                                    <select id="timeZone">
+                                        <option value="IST" selected>India Standard Time (IST)</option>
+                                        <option value="EST">Eastern Standard Time (EST)</option>
+                                        <option value="PST">Pacific Standard Time (PST)</option>
+                                        <option value="GMT">Greenwich Mean Time (GMT)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="dateFormat">Date Format</label>
+                                    <select id="dateFormat">
+                                        <option value="dd/mm/yyyy" selected>DD/MM/YYYY</option>
+                                        <option value="mm/dd/yyyy">MM/DD/YYYY</option>
+                                        <option value="yyyy-mm-dd">YYYY-MM-DD</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="language">Language</label>
+                                    <select id="language">
+                                        <option value="en" selected>English</option>
+                                        <option value="hi">Hindi</option>
+                                        <option value="es">Spanish</option>
+                                        <option value="fr">French</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Attendance Settings -->
+                        <div class="settings-section" id="attendance-settings">
+                            <h3 style="margin-bottom: 20px;">Attendance Settings</h3>
+                            <form id="attendanceSettingsForm">
+                                <div class="form-group">
+                                    <label for="attendanceThreshold">Attendance Threshold (%)</label>
+                                    <input type="number" id="attendanceThreshold" value="75" min="0" max="100">
+                                    <small style="color: var(--gray-color); display: block; margin-top: 5px;">Minimum attendance percentage required</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="lateThreshold">Late Arrival Threshold (minutes)</label>
+                                    <input type="number" id="lateThreshold" value="10" min="0">
+                                    <small style="color: var(--gray-color); display: block; margin-top: 5px;">Students arriving after this will be marked late</small>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Auto-mark Absent After</label>
+                                    <select id="autoAbsent">
+                                        <option value="15">15 minutes</option>
+                                        <option value="30" selected>30 minutes</option>
+                                        <option value="45">45 minutes</option>
+                                        <option value="60">60 minutes</option>
+                                        <option value="0">Never (manual only)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="allowManualOverride" checked>
+                                        Allow Manual Attendance Override
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="sendAbsenceAlerts" checked>
+                                        Send Absence Alerts to Parents
+                                    </label>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- QR Settings -->
+                        <div class="settings-section" id="qr-settings">
+                            <h3 style="margin-bottom: 20px;">QR Code Settings</h3>
+                            <form id="qrSettingsForm">
+                                <div class="form-group">
+                                    <label for="defaultQRDuration">Default QR Validity Duration</label>
+                                    <select id="defaultQRDuration">
+                                        <option value="5">5 minutes</option>
+                                        <option value="10">10 minutes</option>
+                                        <option value="15" selected>15 minutes</option>
+                                        <option value="20">20 minutes</option>
+                                        <option value="30">30 minutes</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="qrRefreshRate">QR Auto-refresh Interval</label>
+                                    <select id="qrRefreshRate">
+                                        <option value="0" selected>No auto-refresh</option>
+                                        <option value="5">Every 5 minutes</option>
+                                        <option value="10">Every 10 minutes</option>
+                                        <option value="15">Every 15 minutes</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="includeStudentInfo" checked>
+                                        Include Student Info in QR
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="enableBatchQR" checked>
+                                        Enable Batch QR Generation
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="qrSecurityLevel">QR Security Level</label>
+                                    <select id="qrSecurityLevel">
+                                        <option value="low">Low (Basic)</option>
+                                        <option value="medium" selected>Medium (Recommended)</option>
+                                        <option value="high">High (Encrypted)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Notification Settings -->
+                        <div class="settings-section" id="notifications-settings">
+                            <h3 style="margin-bottom: 20px;">Notification Settings</h3>
+                            <form id="notificationSettingsForm">
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="emailNotifications" checked>
+                                        Email Notifications
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="smsNotifications">
+                                        SMS Notifications
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="pushNotifications" checked>
+                                        Push Notifications
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Notification Frequency</label>
+                                    <select id="notificationFrequency">
+                                        <option value="instant">Instant</option>
+                                        <option value="daily" selected>Daily Summary</option>
+                                        <option value="weekly">Weekly Summary</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Receive Notifications For:</label>
+                                    <div style="margin-top: 10px;">
+                                        <label style="display: block; margin-bottom: 8px;">
+                                            <input type="checkbox" id="notifyAbsences" checked>
+                                            Student Absences
+                                        </label>
+                                        <label style="display: block; margin-bottom: 8px;">
+                                            <input type="checkbox" id="notifyLowAttendance" checked>
+                                            Low Attendance Alerts
+                                        </label>
+                                        <label style="display: block; margin-bottom: 8px;">
+                                            <input type="checkbox" id="notifySystemUpdates">
+                                            System Updates
+                                        </label>
+                                        <label style="display: block; margin-bottom: 8px;">
+                                            <input type="checkbox" id="notifyQRExpiry" checked>
+                                            QR Code Expiry
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Account Settings -->
+                        <div class="settings-section" id="account-settings">
+                            <h3 style="margin-bottom: 20px;">Account Settings</h3>
+                            <form id="accountSettingsForm">
+                                <div class="form-group">
+                                    <label for="accountTeacherName">Full Name</label>
+                                    <input type="text" id="accountTeacherName" value="John Doe">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="accountTeacherEmail">Email Address</label>
+                                    <input type="email" id="accountTeacherEmail" value="john.doe@example.com">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="accountTeacherPhone">Phone Number</label>
+                                    <input type="tel" id="accountTeacherPhone" value="+1 (555) 123-4567">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="accountDepartment">Department</label>
+                                    <input type="text" id="accountDepartment" value="Computer Science">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Profile Picture</label>
+                                    <div style="margin-top: 10px;">
+                                        <div class="user-avatar" style="width: 80px; height: 80px; font-size: 24px;" id="accountAvatar">JD</div>
+                                        <button type="button" class="btn btn-secondary" style="margin-top: 10px;">
+                                            <i class="fas fa-upload"></i> Upload New Photo
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="reset" class="btn btn-secondary">Reset</button>
+                                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Security Settings -->
+                        <div class="settings-section" id="security-settings">
+                            <h3 style="margin-bottom: 20px;">Security Settings</h3>
+                            <form id="securitySettingsForm">
+                                <div class="form-group">
+                                    <label for="currentPassword">Current Password</label>
+                                    <input type="password" id="currentPassword">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="newPassword">New Password</label>
+                                    <input type="password" id="newPassword">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm New Password</label>
+                                    <input type="password" id="confirmPassword">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="twoFactorAuth">
+                                        Enable Two-Factor Authentication
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>
+                                        <input type="checkbox" id="sessionTimeout" checked>
+                                        Auto-logout after 30 minutes of inactivity
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Login History</label>
+                                    <div style="margin-top: 10px; padding: 15px; background-color: var(--light-gray); border-radius: 8px;">
+                                        <p style="margin-bottom: 5px;"><strong>Last Login:</strong> Today, 8:45 AM</p>
+                                        <p style="margin-bottom: 5px;"><strong>IP Address:</strong> 192.168.1.100</p>
+                                        <p><strong>Device:</strong> Chrome on Windows 10</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="reset" class="btn btn-secondary">Clear</button>
+                                    <button type="submit" class="btn btn-primary">Update Password</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Class Modal -->
+    <div class="modal" id="editClassModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Class</h3>
+                <button class="close-btn" id="closeEditClassBtn">&times;</button>
+            </div>
+            <form id="editClassForm">
+                <input type="hidden" id="editClassId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editClassName">Class Name *</label>
+                        <input type="text" id="editClassName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editSubjectName">Subject *</label>
+                        <input type="text" id="editSubjectName" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editClassSchedule">Schedule *</label>
+                        <input type="text" id="editClassSchedule" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editClassRoom">Room Number *</label>
+                        <input type="text" id="editClassRoom" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editClassDescription">Description</label>
+                    <textarea id="editClassDescription" rows="3"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelEditClassBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Teacher Profile Modal -->
+    <div class="modal" id="editTeacherProfileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit My Profile</h3>
+                <button class="close-btn" id="closeEditTeacherProfileBtn">&times;</button>
+            </div>
+            <form id="editTeacherProfileForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editTeacherName">Full Name *</label>
+                        <input type="text" id="editTeacherName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editTeacherId">Employee ID *</label>
+                        <input type="text" id="editTeacherId" required readonly>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editTeacherEmail">Email *</label>
+                        <input type="email" id="editTeacherEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editTeacherPhone">Phone *</label>
+                        <input type="tel" id="editTeacherPhone" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editTeacherDepartment">Department *</label>
+                        <input type="text" id="editTeacherDepartment" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editTeacherRole">Role/Designation *</label>
+                        <input type="text" id="editTeacherRole" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editTeacherBio">Bio/Description</label>
+                    <textarea id="editTeacherBio" rows="3" placeholder="Tell about yourself, qualifications, experience..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelEditTeacherProfileBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+    <div class="modal" id="changePasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="close-btn" id="closeChangePasswordBtn">&times;</button>
+            </div>
+            <form id="changePasswordForm">
+                <div class="form-group">
+                    <label for="currentPasswordModal">Current Password *</label>
+                    <input type="password" id="currentPasswordModal" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="newPasswordModal">New Password *</label>
+                    <input type="password" id="newPasswordModal" required>
+                    <small style="color: var(--gray-color); display: block; margin-top: 5px;">Password must be at least 8 characters long</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPasswordModal">Confirm New Password *</label>
+                    <input type="password" id="confirmPasswordModal" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelChangePasswordBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="teacher-dashboard.js"></script>
+</body>
+</html>
