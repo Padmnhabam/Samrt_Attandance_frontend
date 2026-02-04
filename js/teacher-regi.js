@@ -30,7 +30,6 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
             // Show success message
             document.getElementById("message").textContent = "Registration successful! Redirecting to login...";
             document.getElementById("message").style.color = "green";
-
             // Redirect after 2 seconds
             setTimeout(() => {
                 window.location.href = "index.html"; // your login page
