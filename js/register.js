@@ -6,6 +6,8 @@ document.getElementById("registerForm").addEventListener("submit", function(e) {
         rollNo:document.getElementById("rollNo").value,
         className:document.getElementById("className").value,
         email: document.getElementById("email").value,
+        address: document.getElementById("address").value,
+        mobilenumber: document.getElementById("mobilenumber").value,
         password: document.getElementById("password").value
     };
 
